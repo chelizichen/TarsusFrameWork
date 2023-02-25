@@ -6,14 +6,14 @@ Tarsus FrameWork is an evolution of the ADO project to quickly create and launch
 
 ---
 
-## 
+## Associated
 
 - [@Tarsus/Node](https://github.com/chelizichen/Tarsus) Include Http Service 、Orm、MicroServiceGateway、MicroService
 - [@Tarsus/Java-Proxy](https://github.com/chelizichen/Tarsus-Java-Proxy)  Include SpringBootProxyServer、SpringBootServer
 - [@Tarsus/Java](https://github.com/chelizichen/Tarsus-Java) Include JavaMicroService
 - [@Tarsus/CLI](https://github.com/chelizichen/Tarsus-cli) A CLI For Build Tarsus Application
 
-### 微服务架构模型
+### Architecture
 
 ---
 
@@ -24,20 +24,20 @@ Tarsus Framework supports event-driven microservices, using nodejs to create mic
 ```mermaid
 graph TD
 
-  A1[Web App] -->|请求| B1[TarsusNodeHttpServer]
-  A1[Web App] -->|请求| B2[TarsusJavaHttpServer]
+  A1[Web App] -->|Request| B1[TarsusNodeHttpServer]
+  A1[Web App] -->|Request| B2[TarsusJavaHttpServer]
 
-  B1 -->|响应| A1
-  B2 -->|响应| A1
+  B1 -->|Response| A1
+  B2 -->|Response| A1
   
-  B1 ---|转发请求-响应| C((TarsusProxyServer))
-  B2 ---|转发请求-响应| C
+  B1 ---|ProxyRequest-Response| C((TarsusProxyServer))
+  B2 ---|ProxyRequest-Response| C
   
 
 
 
-  C ---|请求-响应| D[...TarsusNodeMicroServer]
-  C ---|请求-响应| E[...TarsusJavaMicroServer]
+  C ---|Request-Response| D[...TarsusNodeMicroServer]
+  C ---|Request-Response| E[...TarsusJavaMicroServer]
 
 ```
 
