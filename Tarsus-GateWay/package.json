@@ -1,0 +1,15 @@
+{
+  "name": "tarsus-gateway",
+  "version": "1.0.0",
+  "description": "tarsus-gateway",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "dev": "ts-node-dev src/index.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "tarsus": "^1.0.4"
+  }
+}

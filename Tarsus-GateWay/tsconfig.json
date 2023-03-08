@@ -1,0 +1,8 @@
+{
+    "compilerOptions": {
+        "strictPropertyInitialization": false,
+        "esModuleInterop":true,
+        "downlevelIteration":true,
+        "jsx": "react"
+    }
+}
