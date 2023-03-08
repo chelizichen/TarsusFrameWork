@@ -10,6 +10,7 @@
   "author": "",
   "license": "ISC",
   "dependencies": {
-    "tarsus": "^1.0.4"
+    "tarsus": "^1.0.6",
+    "typescript": "5.0.0-beta"
   }
 }
