@@ -22,14 +22,7 @@ let server = net.createConnection({
 // #a##a#tom#b#jump#c#12#d#1#z##b##a#测试#z##c#1#z#
 // [#ENDL#]\n
 
-server.write(`
-[#1]HelloInterFace
-[#2]TestRet
-[#3]3000
-[#4]36
-[##]
-#a##a#tom#b#jump#c#12#d#1#z##b##a#测试#z##c#1#z#
-[#ENDL#]\n
+server.write(`[#1]HelloInterFace[#2]TestRet[#3]3000[#4]36[##]#a##a#tom#b#jump#c#12#d#1#z##b##a#测试#z##c#結束的東西#z#[#ENDL#]\n
 `, function (err) {
   if (err) {
     throw err
