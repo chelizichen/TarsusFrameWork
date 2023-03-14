@@ -1,3 +1,23 @@
 [submodule "Tarsus-Go"]
 	path = Tarsus-Go
 	url = https://github.com/chelizichen/Tarsus-Go.git
+
+[submodule "Tarsus-GateWay"]
+	path = Tarsus-GateWay
+	url = https://github.com/chelizichen/Tarsus-GateWay.git
+
+[submodule "Tarsus-cli"]
+	path = Tarsus-cli
+	url = https://github.com/chelizichen/Tarsus-cli.git
+
+[submodule "Tarsus-Java"]
+	path = Tarsus-Java
+	url = https://github.com/chelizichen/Tarsus-Java.git
+
+[submodule "Tarsus-Java-Proxy"]
+	path = Tarsus-Java-Proxy
+	url = https://github.com/chelizichen/Tarsus-Java-Proxy.git
+
+[submodule "Tarsus"]
+	path = Tarsus
+	url = https://github.com/chelizichen/Tarsus.git
