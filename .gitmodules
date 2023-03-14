@@ -1,0 +1,3 @@
+[submodule "Tarsus-Go"]
+	path = Tarsus-Go
+	url = https://github.com/chelizichen/Tarsus-Go.git
