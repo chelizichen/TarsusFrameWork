@@ -1,4 +1,4 @@
-struct testparams{
+struct TestParams  {
   helloReq  : {
     1 optional message : string;
     2 optional id : int;
