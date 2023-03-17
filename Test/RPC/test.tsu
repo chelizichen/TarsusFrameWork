@@ -1,0 +1,21 @@
+struct testparams{
+  helloReq  : {
+    1 optional message : string;
+    2 optional id : int;
+  };
+  helloRes  : {
+    1 optional data : string;
+    2 optional code : int;
+    3 optional message : string;
+  };
+  sayReq  : {
+    1 optional message : string;
+    2 optional id : int;
+  };
+  sayRes  : {
+    1 optional data : string;
+    2 optional code : int;
+    3 optional message : string;
+  };
+};
+
