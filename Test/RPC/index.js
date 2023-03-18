@@ -20,8 +20,14 @@ var TarsusStream = function (url) {
 
 TarsusStream.prototype.readStruct = function () {
   this._data.forEach(el => {
-    console.log(el);
+    this._read_struct_(el)
   })
+}
+
+TarsusStream.prototype._read_struct_ = function(struct){
+  let struct_name_reg = new RegExp(/(.*){/)
+  let struct_name  = struct_name_reg.exec(struct)[1].split(":")[0].trim()
+  console.log(struct_name);
 }
 
 new TarsusStream("./test.tsu")
