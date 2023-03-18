@@ -1,21 +1,32 @@
 struct TestParams  {
-  helloReq  : {
-    1 optional message : string;
-    2 optional id : int;
+  
+  Good              : {
+    1       id      : int;
+    2       name    : string;
+    3       price   : int;
   };
-  helloRes  : {
-    1 optional data : string;
-    2 optional code : int;
-    3 optional message : string;
+
+  GetGoodReq        : {
+    3       message : string;
+    1       id      : int;
+    2       basic   : string;
   };
-  sayReq  : {
-    1 optional message : string;
-    2 optional id : int;
+
+  GetGoodRes        : {
+    1       data    : Good;
+    2       code    : int;
+    3       message : string;
   };
-  sayRes  : {
-    1 optional data : string;
-    2 optional code : int;
-    3 optional message : string;
+
+  GetGoodsListReq    : {
+    1       message : string;
+    2       id      : int;
+  };
+  
+  GetGoodsListRes   : {
+    1       data    : List<Good>;
+    2       code    : int;
+    3       message : string;
   };
 };
 
