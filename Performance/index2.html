@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Document</title>
+</head>
+<body>
+  <div id="main" style="width: 1000px;height:1000px;"></div>
+
+
+  <script src="https://cdn.jsdelivr.net/npm/echarts@5.4.2/dist/echarts.min.js"></script>
+  <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script type="application/javascript">
+
+const data = {
+	"id": "dc243b1e-5efe-43c6-9fa4-fdfb21ce689f",
+	"name": "Tarsus",
+	"timestamp": "2023-04-09T02:36:28.936Z",
+	"collection_id": "17368759-f65ef7b7-28ce-452f-a7a4-7b78068c33b0",
+	"folder_id": "17368759-38b124a3-21f1-4060-b72e-0fb0c7143700",
+	"environment_id": "0",
+	"totalPass": 0,
+	"totalFail": 0,
+	"results": [
+		{
+			"id": "c81b089a-0a82-42f0-a9cb-ff9f4525baa3",
+			"name": "Node|getUserById",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				15,
+				3,
+				4,
+				3,
+				4,
+				3,
+				4,
+				8,
+				3,
+				22,
+				3,
+				3,
+				3,
+				4,
+				3,
+				3,
+				6,
+				8,
+				3,
+				2,
+				5,
+				3,
+				3,
+				8,
+				4,
+				5,
+				3,
+				3,
+				2,
+				4,
+				3,
+				8,
+				10,
+				3,
+				5,
+				4,
+				5,
+				3,
+				3,
+				2,
+				3,
+				2,
+				4,
+				2,
+				3,
+				3,
+				3,
+				5,
+				3,
+				2,
+				3,
+				11,
+				8,
+				3,
+				4,
+				3,
+				3,
+				3,
+				3,
+				3,
+				3,
+				2,
+				3,
+				7,
+				7,
+				3,
+				7,
+				3,
+				3,
+				2,
+				3,
+				6,
+				13,
+				4,
+				6,
+				4,
+				2,
+				3,
+				3,
+				3,
+				3,
+				2,
+				4,
+				6,
+				3,
+				2,
+				9,
+				2,
+				2,
+				4,
+				2,
+				4,
+				100,
+				3,
+				5,
+				3,
+				3,
+				3,
+				3,
+				4
+			]
+		},
+		{
+			"id": "1d883528-3638-4518-aedd-a83482183b75",
+			"name": "Java|getUserById",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				8,
+				3,
+				9,
+				4,
+				4,
+				7,
+				4,
+				6,
+				5,
+				16,
+				3,
+				4,
+				6,
+				3,
+				3,
+				3,
+				9,
+				7,
+				3,
+				3,
+				2,
+				7,
+				3,
+				3,
+				3,
+				11,
+				5,
+				4,
+				2,
+				3,
+				4,
+				14,
+				6,
+				3,
+				4,
+				3,
+				2,
+				6,
+				6,
+				3,
+				5,
+				2,
+				3,
+				3,
+				3,
+				3,
+				3,
+				5,
+				3,
+				33,
+				3,
+				2,
+				8,
+				3,
+				7,
+				2,
+				3,
+				3,
+				2,
+				3,
+				3,
+				3,
+				3,
+				2,
+				3,
+				6,
+				6,
+				7,
+				3,
+				3,
+				3,
+				7,
+				12,
+				10,
+				10,
+				4,
+				3,
+				2,
+				8,
+				3,
+				2,
+				3,
+				3,
+				6,
+				3,
+				6,
+				5,
+				2,
+				3,
+				3,
+				3,
+				3,
+				15,
+				2,
+				5,
+				3,
+				2,
+				4,
+				8,
+				4
+			]
+		},
+		{
+			"id": "d7e279d0-dc20-46ad-a909-81f39d13c251",
+			"name": "Java|getUserList",
+			"time": 5,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				5,
+				7,
+				6,
+				6,
+				4,
+				6,
+				6,
+				5,
+				39,
+				5,
+				5,
+				3,
+				31,
+				3,
+				3,
+				3,
+				11,
+				4,
+				3,
+				11,
+				3,
+				3,
+				3,
+				8,
+				6,
+				3,
+				17,
+				3,
+				3,
+				10,
+				13,
+				10,
+				6,
+				6,
+				6,
+				5,
+				8,
+				3,
+				3,
+				5,
+				3,
+				3,
+				4,
+				3,
+				3,
+				3,
+				4,
+				9,
+				3,
+				43,
+				10,
+				5,
+				11,
+				3,
+				3,
+				3,
+				3,
+				4,
+				3,
+				3,
+				3,
+				3,
+				3,
+				3,
+				3,
+				6,
+				5,
+				3,
+				13,
+				9,
+				3,
+				3,
+				7,
+				3,
+				3,
+				3,
+				4,
+				3,
+				4,
+				3,
+				3,
+				4,
+				3,
+				4,
+				6,
+				3,
+				8,
+				3,
+				3,
+				3,
+				3,
+				4,
+				4,
+				5,
+				6,
+				4,
+				3,
+				3,
+				3,
+				5
+			]
+		},
+		{
+			"id": "7bf20f4c-7943-4120-927f-62cab90c055c",
+			"name": "Node|getUserList",
+			"time": 4,
+			"responseCode": {
+				"code": 200,
+				"name": "OK"
+			},
+			"tests": {},
+			"testPassFailCounts": {},
+			"times": [
+				4,
+				9,
+				13,
+				5,
+				6,
+				12,
+				8,
+				5,
+				38,
+				22,
+				16,
+				4,
+				4,
+				4,
+				8,
+				8,
+				7,
+				11,
+				5,
+				3,
+				14,
+				3,
+				7,
+				3,
+				11,
+				3,
+				4,
+				3,
+				12,
+				27,
+				3,
+				15,
+				5,
+				5,
+				6,
+				7,
+				3,
+				3,
+				8,
+				3,
+				3,
+				5,
+				3,
+				4,
+				3,
+				3,
+				4,
+				5,
+				4,
+				17,
+				9,
+				9,
+				8,
+				3,
+				3,
+				4,
+				3,
+				4,
+				10,
+				3,
+				10,
+				3,
+				3,
+				4,
+				3,
+				17,
+				14,
+				4,
+				3,
+				10,
+				3,
+				5,
+				31,
+				3,
+				5,
+				3,
+				3,
+				4,
+				3,
+				3,
+				4,
+				3,
+				3,
+				3,
+				3,
+				6,
+				3,
+				4,
+				3,
+				3,
+				5,
+				3,
+				15,
+				3,
+				3,
+				3,
+				3,
+				13,
+				3,
+				4
+			]
+		}
+	],
+	"count": 100,
+	"totalTime": 2261,
+	"collection": {
+		"requests": [
+			{
+				"id": "c81b089a-0a82-42f0-a9cb-ff9f4525baa3",
+				"method": "POST"
+			},
+			{
+				"id": "1d883528-3638-4518-aedd-a83482183b75",
+				"method": "POST"
+			},
+			{
+				"id": "d7e279d0-dc20-46ad-a909-81f39d13c251",
+				"method": "POST"
+			},
+			{
+				"id": "7bf20f4c-7943-4120-927f-62cab90c055c",
+				"method": "POST"
+			}
+		]
+	}
+}
+
+const avg = data.results.map(item=>{
+  return Object.values((item.times))
+})
+
+const totalAvg = data.results.map(item=>{
+  return item.times
+})
+
+let avg1 = totalAvg[0].map((el,index)=>{
+  let a = totalAvg[0][index]
+  let b = totalAvg[1][index]
+  let c = totalAvg[2][index]
+  let d = totalAvg[3][index]
+
+  let avg = ((a+b+c+d)/4).toFixed(2)
+  return avg
+})
+
+console.log(avg1);
+
+ function calc(times){
+   const total = times.reduce((acc, curr) => acc + curr, 0);
+  const average = total / times.length;
+  const sortedTimes = times.slice().sort((a, b) => a - b);
+  const median = sortedTimes.length % 2 === 0
+    ? (sortedTimes[sortedTimes.length / 2 - 1] + sortedTimes[sortedTimes.length / 2]) / 2
+    : sortedTimes[Math.floor(sortedTimes.length / 2)];
+  const timeoutThreshold = 10;
+  const timeoutCount = times.filter(time => time > timeoutThreshold).length;
+  const timeoutRate = timeoutCount / times.length;
+
+  return {
+    total,
+    average,
+    median,
+    timeoutCount,
+    timeoutRate
+  }
+ }
+
+
+option = {
+  tooltip: {
+    trigger: 'axis',
+    axisPointer: {
+      type: 'cross',
+      crossStyle: {
+        color: '#999'
+      }
+    }
+  },
+  toolbox: {
+    feature: {
+      dataView: { show: true, readOnly: false },
+      magicType: { show: true, type: ['line', 'bar'] },
+      restore: { show: true },
+      saveAsImage: { show: true }
+    }
+  },
+  legend: {
+    data: ['Java|GetUserById', 'Node|GetUserById', 'Java|GetUserList',"Node|GetUserList","Average time"]
+  },
+  xAxis: [
+    {
+      type: 'category',
+      data: ['total', 'average', 'median', 'timeoutCount', 'timeoutRate'],
+    }
+  ],
+  yAxis: [
+    {
+      type: 'value',
+      name: 'interface statistics',
+      min: 0,
+      max: 25,
+      interval: 5,
+    },
+    {
+      type: 'value',
+      name: 'Average time',
+      min: 0,
+      max: 25,
+      interval: 5,
+      axisLabel: {
+        formatter: '{value} ms'
+      }
+    }
+  ],
+  series: [
+    {
+      name: 'Java|GetUserById',
+      type: 'bar',
+      data: avg[0]
+    },
+    {
+      name: 'Node|GetUserById',
+      type: 'bar',
+      data: avg[1]
+    },
+        {
+      name: 'Java|GetUserList',
+      type: 'bar',
+
+      data: avg[2]
+    },
+        {
+      name: 'Node|GetUserList',
+      type: 'bar',
+      data: avg[3]
+    },
+    {
+      name: 'Avg',
+      type: 'line',
+      yAxisIndex: 1,
+      tooltip: {
+        valueFormatter: function (value) {
+          return value +" ms";
+        }
+      },
+      data: avg1
+    }
+  ]
+};
+
+var myChart = echarts.init(document.getElementById('main'));
+myChart.setOption(option);
+
+
+
+  </script>
+</body>
+</html>
