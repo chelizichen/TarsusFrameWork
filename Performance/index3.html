@@ -501,9 +501,6 @@ const data = {
 	}
 }
 
-const avg = data.results.map(item=>{
-  return Object.values((item.times))
-})
 
 const totalAvg = data.results.map(item=>{
   return item.times
@@ -519,118 +516,73 @@ let avg1 = totalAvg[0].map((el,index)=>{
   return avg
 })
 
-console.log(avg1);
+let xArr = avg1.map((el,index)=>{
+  return index
+})
 
- function calc(times){
-   const total = times.reduce((acc, curr) => acc + curr, 0);
-  const average = total / times.length;
-  const sortedTimes = times.slice().sort((a, b) => a - b);
-  const median = sortedTimes.length % 2 === 0
-    ? (sortedTimes[sortedTimes.length / 2 - 1] + sortedTimes[sortedTimes.length / 2]) / 2
-    : sortedTimes[Math.floor(sortedTimes.length / 2)];
-  const timeoutThreshold = 10;
-  const timeoutCount = times.filter(time => time > timeoutThreshold).length;
-  const timeoutRate = timeoutCount / times.length;
-
-  return {
-    total,
-    average,
-    median,
-    timeoutCount,
-    timeoutRate
-  }
- }
-
-
-option = {
-    title: {
-        text: '接口数据统计',
-        textStyle: {
-            fontWeight: 'normal',
-            fontSize: 18
-        },
-        left: 'center'
-    },
+const option = {
+  title: {
+    text: '各个接口耗时'
+  },
   tooltip: {
-    trigger: 'axis',
-    axisPointer: {
-      type: 'cross',
-      crossStyle: {
-        color: '#999'
-      }
-    }
+    trigger: 'axis'
+  },
+  legend: {
+    data: ['Java|GetUserById', 'Node|GetUserById', 'Java|GetUserList',"Node|GetUserList","Average time"]
+  },
+  grid: {
+    left: '3%',
+    right: '4%',
+    bottom: '3%',
+    containLabel: true
   },
   toolbox: {
     feature: {
-      dataView: { show: true, readOnly: false },
-      magicType: { show: true, type: ['line', 'bar'] },
-      restore: { show: true },
-      saveAsImage: { show: true }
+      saveAsImage: {}
     }
   },
-  // legend: {
-  //   data: ['Java|GetUserById', 'Node|GetUserById', 'Java|GetUserList',"Node|GetUserList","Average time"]
-  // },
-  xAxis: [
-    {
-      type: 'category',
-      data: ['total', 'average', 'median', 'timeoutCount', 'timeoutRate'],
-    }
-  ],
-  yAxis: [
-    {
-      type: 'value',
-      name: 'interface statistics',
-      min: 0,
-      max: 20,
-      interval: 5,
-    },
-    {
-      type: 'value',
-      name: 'Average time',
-      min: 0,
-      max: 20,
-      interval: 5,
-      axisLabel: {
-        formatter: '{value} ms'
-      }
-    }
-  ],
+  xAxis: {
+    type: 'category',
+    boundaryGap: false,
+    data:xArr
+  },
+  yAxis: {
+    type: 'value'
+  },
   series: [
     {
       name: 'Java|GetUserById',
-      type: 'bar',
-      data: avg[1]
+      type: 'line',
+      stack: 'Total',
+      data: totalAvg[0]
     },
     {
       name: 'Node|GetUserById',
-      type: 'bar',
-      data: avg[0]
-    },
-        {
-      name: 'Java|GetUserList',
-      type: 'bar',
-
-      data: avg[2]
-    },
-        {
-      name: 'Node|GetUserList',
-      type: 'bar',
-      data: avg[3]
+      type: 'line',
+      stack: 'Total',
+      data: totalAvg[1]
     },
     {
-      name: 'Avg',
+      name: 'Java|GetUserList',
       type: 'line',
-      yAxisIndex: 1,
-      tooltip: {
-        valueFormatter: function (value) {
-          return value +" ms";
-        }
-      },
+      stack: 'Total',
+      data: totalAvg[2]
+    },
+    {
+      name: 'Node|GetUserList',
+      type: 'line',
+      stack: 'Total',
+      data: totalAvg[3]
+    },
+    {
+      name: 'Average time',
+      type: 'line',
+      stack: 'Total',
       data: avg1
-    }
+    },
   ]
 };
+
 
 var myChart = echarts.init(document.getElementById('main'));
 myChart.setOption(option);
