@@ -19,7 +19,7 @@
 	url = https://github.com/chelizichen/Tarsus-Java-Proxy.git
 
 [submodule "Tarsus-NodeJS"]
-	path = Tarsus
+	path = Tarsus-NodeJS
 	url = https://github.com/chelizichen/Tarsus-NodeJS.git
 
 [submodule "TarsusFundApplication"]
