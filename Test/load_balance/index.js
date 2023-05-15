@@ -5,10 +5,14 @@ function T_LB_Request(url) {
   return
 }
 
+
 /**
- * @TarsusLoadBalance
- * @description 负载均衡策略
- * 
+ * @TarsusLoadBalance 负载均衡 BaseClass
+ * @description 
+ * 在我的思维里，对项目进行配置时会配置他的所有IP和权重
+ * 在GateWay里时会对每个代理IP创建一个链接实例，每分钟都会拿到负载的数据
+ * 对 负载 / weight 得到合适的权重 再通过sort 进行排序
+ * sort 后的 数组第一位即为当前负载最低的机器
  */
 class TarsusLoadBalance{
 
@@ -52,6 +56,12 @@ class TarsusLoadBalance{
       arrs = arrs.sort((a, b) => a.weight - b.weight);
       this.hostList = arrs
     },1000)
+  }
+
+  /**
+   * @description 根据这个代理去请求
+   */
+  ProxySendRequest() {
   }
 }
 
