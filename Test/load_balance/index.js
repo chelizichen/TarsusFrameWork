@@ -63,6 +63,10 @@ class TarsusLoadBalance{
    */
   ProxySendRequest() {
   }
+
+  KeepAlive(){
+    
+  }
 }
 
 const a = TarsusLoadBalance.getLastOneMinutes()
