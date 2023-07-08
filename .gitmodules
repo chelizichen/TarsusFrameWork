@@ -25,3 +25,7 @@
 [submodule "TarsusFundApplication"]
 	path = TarsusFundApplication
 	url = https://github.com/chelizichen/TarsusFundApplication.git
+
+[submodule "Tarsus-Loader"]
+	path = Tarsus-Loader
+	url = https://github.com/chelizichen/Tarsus-Loader.git
