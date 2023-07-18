@@ -48,3 +48,9 @@ graph TD
 - [@Tarsus/Java](https://github.com/chelizichen/Tarsus-Java/readme.md)
 - [@Tarsus/CLI](https://github.com/chelizichen/Tarsus-cli/readme.md)
 
+
+### Clone
+
+````cmd
+git clone https://github.com/chelizichen/TarsusFrameWork.git  --recursive
+````
