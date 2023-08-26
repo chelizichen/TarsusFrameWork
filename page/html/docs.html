@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tarsus-Document</title>
+    <link rel="stylesheet" href="../css/index.css">
+    <link rel="stylesheet" href="../css/docs.css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/twitter-bootstrap/5.2.3/css/bootstrap.min.css" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+</head>
+
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="../../index.html">Home</a></li>
+                <li><a>Docs</a></li>
+                <li><a href="#">Services</a></li>
+                <li><a href="#">Contact</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <main style="margin: 0;padding: 0;">
+        <div class="doc-container" style="margin: 0;padding: 0;">
+            <!-- API Menu (Left column) -->
+            <aside class="api-menu">
+                <h2 style="color: #2c8c99;">Docs</h2>
+                <ul>
+                    <li><a href="#HttpServer" style="font-size: 24px;">HttpServer</a></li>
+                    <li><a href="#Controller"  style="font-size: 20px;">Controller</a></li>
+                    <li><a href="#Get"  style="font-size: 20px;">Get  Post</a></li>
+                    <li><a href="#Invoke"  style="font-size: 20px;">$INVOKE</a></li>
+                    <!-- ... -->
+                </ul>
+                <ul>
+                    <li><a href="#Proto" style="font-size: 24px;">PROTO</a></li>
+                </ul>
+                <ul>
+                    <li><a href="#MircoService"  style="font-size: 20px;">MircoService</a></li>
+                    <li><a href="#TarsusInterFace"  style="font-size: 20px;">TarsusInterFace</a></li>
+                    <li><a href="#TarsusMethod"  style="font-size: 20px;">TarsusMethod</a></li>
+                    <li><a href="#Stream"  style="font-size: 20px;">Stream</a></li>
+                    <!-- ... -->
+                </ul>
+            </aside>
+
+            <section class="api-details" style="overflow: scroll;height: 100vh;">
+                <article id="HttpServer">
+                    <h2>HttpServer</h2>
+                    <p><code>import {TarsusHttpApplication,LoadController,LoadInit,LoadServer,LoadStruct,LoadTaro} from 'tarsus/core/httpservice'</code>
+                    </p>
+                    <p>When you want to use HTTP services, you can import these loading methods and use them
+                        selectively.
+                        Among them, LoadStruct, LoadTaro, and LoadInit are optional, while others are required</p>
+                    <p>When you do not want to use the HTTP service as a gateway for microservices, you can set the LoadServer config { load_ms }  to false</p>
+                    <pre class="prettyprint lang-typescript" style="padding: 20px;">
+                        <code>
+import {TarsusHttpApplication,LoadController,LoadInit,LoadServer,LoadStruct,LoadTaro} from 'tarsus/core/httpservice'
+import ProxyController from './controller/ProxyController';
+
+@TarsusHttpApplication
+class HttpServer{
+    static main(){
+        LoadController([ProxyController])
+        // init
+        LoadInit((app)=>{
+            const { loadWebpackDev } = require('tarsus-cli/web');
+            loadWebpackDev(app)
+        });
+        LoadStruct()
+        LoadTaro()
+        // load
+        LoadServer({
+            load_ms:true
+        })
+    }
+}
+
+HttpServer.main()
+                    </code></pre>
+                </article>
+
+                <article id="Controller">
+                    <h2>Controller</h2>
+                    <p><code>import { Controller, INVOKE } from 'tarsus/core/httpservice'</code>
+                    </p>
+                    <p>The @Controller, like NestJs and SpringBoot, is used to identify the request address</p>
+                    <pre class="prettyprint lang-typescript" style="padding: 20px;">
+                        <code>
+@Controller("/proxy")
+class ProxyController {
+
+    @INVOKE("/invoke")
+    invoke(req, res) {
+        debugger;
+        $Transmit(req, res);
+    }
+}
+export default ProxyController
+                    </code></pre>
+                </article>
+
+
+                <article id="Get">
+                    <h2>Get  Post</h2>
+                    <p><code>import { Controller, Get, Post } from 'tarsus/core/httpservice'</code>
+                    </p>
+                    <p>The @Get,@Post like NestJs and SpringBoot, is used to identify the request address</p>
+                    <pre class="prettyprint lang-typescript" style="padding: 20px;">
+                        <code>
+@Controller("/user")
+class UserController {
+    @Get("/list")
+    getUserList(req:Request) {
+        return"get user list"
+    }
+    @Post("/save")
+    saveUSer(req:Request){
+        return"save User"
+    }
+}
+                    </code></pre>
+                </article>
+
+                <article id="Invoke">
+                    <h2>$INVOKE</h2>
+                    <p><code>import { Controller, INVOKE } from 'tarsus/core/httpservice'</code>
+                    </p>
+                    <p> INVOKE, as a gateway method, accepts HTTP requests and forwards them to the microservices backend for processing. The standard request format is as follows 👇</p>
+                    <pre class="prettyprint lang-json" style="padding: 20px;">
+                        <code>
+{
+    "interFace": "TaroInterFaceTest",
+    "method": "getUserById",
+    "data": {
+        "id":"1",
+        "basic":{
+            "token":"123456"
+        }
+    },
+    "proxy":"NodeServer",
+    "timeout": "60000",
+    "request":"GetUserByIdReq"
+}
+                    </code></pre>
+                    <p>The example gateway code as follows 👇</p>
+                    <pre class="prettyprint lang-typescript" style="padding: 20px;">
+                        <code>
+@Controller("/proxy")
+class ProxyController {
+
+    @INVOKE("/invoke")
+    invoke(req, res) {
+        debugger;
+        $Transmit(req, res);
+    }
+}
+export default ProxyController
+                    </code></pre>
+                </article>
+
+                <article id="Proto">
+                    <h2>PROTO</h2>
+                    <p><code>touch User.taro</code></p>
+                    <p> This file defines data types, interfaces, and can be compiled into typescript and Java</p>
+                    <pre class="prettyprint" style="padding: 20px;">
+                        <code>
+/**
+* User Struct
+*/
+
+java_struct_package = com.tarsus.dev_v2_0.struct.*;
+java_inf_package =  com.tarsus.dev_v2_0.taro;
+
+struct UserParams  {
+
+    // 记录
+    User              :     {
+        1   id              :     int;
+        2   username        :     string; //
+        3   password        :     string; //
+        4   email           :     string; //
+        5   phone           :     string; //
+        6   role_name       :     string; //
+        7   level           :     string; //
+        8   create_time     :     string; //
+        9   update_time     :     string; //
+    };
+
+    // 根据ID查询
+    queryIdReq         :    {
+        1   id            :     int;    // 查询用户
+    };
+
+    queryIdsReq         :    {
+        1   ids            :     List&lt;int>;    // 查询用户
+    };
+
+    userBaseInfo        :   {
+        1   id          :   int;
+        2   user_name   :   string;
+    };
+
+    queryUsersNameRes   :   {
+        1   users      :   List&lt;userBaseInfo>;
+    };
+
+    batchSetUserReq     :   {
+        1   ids            :     List&lt;int>;    // 查询用户
+        2   info           :   User;
+    };
+
+    // 查询用户记录
+    getUserListReq         :    {
+        1   keyword         :   string; // 单词匹配
+        2   page            :   int;
+        3   size            :   int;
+        4   start_time      :   string;
+        5   end_time        :   string;
+    };
+
+    getUserListRes          :   {
+        1   code            :   int;
+        2   message         :   string;
+        3   list            :   List&lt;User>;
+        4   total           :   int;
+    };
+
+    // 通用参数
+    baseRes                :     {
+        1   code          :    int;
+        2   message       :    string;
+    };
+
+    getUserByIdRes          :   {
+        1   code          :     int;
+        2   message       :     string;
+        3   data          :     User;
+    };
+
+
+};
+
+
+// User interface
+
+interface UserInf  {
+    int getBaseUserInfoList (Request :  queryIdsReq, Response : queryUsersNameRes);
+    int getUserList         (Request :  getUserListReq, Response : getUserListRes);
+    int getUserById         (Request  : queryIdReq, Response : getUserByIdRes);
+    int delUserById         (Request  : queryIdReq, Response : baseRes);
+    int saveUser            (Request  : User, Response : baseRes);
+    int batchDelUser        (Request  : queryIdsReq, Response : baseRes);
+    int batchSetUser        (Request  : batchSetUserReq, Response : baseRes);
+};
+                            
+</code></pre>
+                    <p>We can input commands to compile it, as follows <code>taro to ts ./User.taro </code></p>
+                    <p>it can make a typescript file ,like this</p>
+                    <pre class="prettyprint lang-typescript" style="padding: 20px;">
+                        <code>
+const {TarsusReadStream} = require("tarsus-cli/taro");
+
+export class User {
+    public id: number;
+    public username: string;
+    public password: string;
+    public email: string;
+    public phone: string;
+    public role_name: string;
+    public level: string;
+    public create_time: string;
+    public update_time: string;
+
+    constructor(...args: any[]) {
+        const _TarsusReadStream = new TarsusReadStream("User", args);
+        this.id = _TarsusReadStream.read_int(1);
+        this.username = _TarsusReadStream.read_string(2);
+        this.password = _TarsusReadStream.read_string(3);
+        this.email = _TarsusReadStream.read_string(4);
+        this.phone = _TarsusReadStream.read_string(5);
+        this.role_name = _TarsusReadStream.read_string(6);
+        this.level = _TarsusReadStream.read_string(7);
+        this.create_time = _TarsusReadStream.read_string(8);
+        this.update_time = _TarsusReadStream.read_string(9);
+    }
+};
+
+export class queryIdReq {
+    public id: number;
+
+    constructor(...args: any[]) {
+        const _TarsusReadStream = new TarsusReadStream("queryIdReq", args);
+        this.id = _TarsusReadStream.read_int(1);
+    }
+};
+
+export class queryIdsReq {
+    public ids: Array&lt;number>;
+
+    constructor(...args: any[]) {
+        const _TarsusReadStream = new TarsusReadStream("queryIdsReq", args);
+        this.ids = _TarsusReadStream.read_list(1, "List&lt;int>");
+    }
+};
+
+export class userBaseInfo {
+    public id: number;
+    public user_name: string;
+
+    constructor(...args: any[]) {
+        const _TarsusReadStream = new TarsusReadStream("userBaseInfo", args);
+        this.id = _TarsusReadStream.read_int(1);
+        this.user_name = _TarsusReadStream.read_string(2);
+    }
+};
+
+export class queryUsersNameRes {
+    public users: Array&lt;userBaseInfo>;
+
+    constructor(...args: any[]) {
+        const _TarsusReadStream = new TarsusReadStream("queryUsersNameRes", args);
+        this.users = _TarsusReadStream.read_list(1, "List&lt;userBaseInfo>");
+    }
+};
+
+export class batchSetUserReq {
+    public ids: Array&lt;number>;
+    public info: User;
+
+    constructor(...args: any[]) {
+        const _TarsusReadStream = new TarsusReadStream("batchSetUserReq", args);
+        this.ids = _TarsusReadStream.read_list(1, "List&lt;int>");
+        this.info = _TarsusReadStream.read_struct(2, "User");
+    }
+};
+
+export class getUserListReq {
+    public keyword: string;
+    public page: number;
+    public size: number;
+    public start_time: string;
+    public end_time: string;
+
+    constructor(...args: any[]) {
+        const _TarsusReadStream = new TarsusReadStream("getUserListReq", args);
+        this.keyword = _TarsusReadStream.read_string(1);
+        this.page = _TarsusReadStream.read_int(2);
+        this.size = _TarsusReadStream.read_int(3);
+        this.start_time = _TarsusReadStream.read_string(4);
+        this.end_time = _TarsusReadStream.read_string(5);
+    }
+};
+
+export class getUserListRes {
+    public code: number;
+    public message: string;
+    public list: Array&lt;User>;
+    public total: number;
+
+    constructor(...args: any[]) {
+        const _TarsusReadStream = new TarsusReadStream("getUserListRes", args);
+        this.code = _TarsusReadStream.read_int(1);
+        this.message = _TarsusReadStream.read_string(2);
+        this.list = _TarsusReadStream.read_list(3, "List&lt;User>");
+        this.total = _TarsusReadStream.read_int(4);
+    }
+};
+
+export class baseRes {
+    public code: number;
+    public message: string;
+
+    constructor(...args: any[]) {
+        const _TarsusReadStream = new TarsusReadStream("baseRes", args);
+        this.code = _TarsusReadStream.read_int(1);
+        this.message = _TarsusReadStream.read_string(2);
+    }
+};
+
+export class getUserByIdRes {
+    public code: number;
+    public message: string;
+    public data: User;
+
+    constructor(...args: any[]) {
+        const _TarsusReadStream = new TarsusReadStream("getUserByIdRes", args);
+        this.code = _TarsusReadStream.read_int(1);
+        this.message = _TarsusReadStream.read_string(2);
+        this.data = _TarsusReadStream.read_struct(3, "User");
+    }
+};
+                            
+</code></pre>
+<p>We can input commands to compile to a interface file, as follows <code>taro inf ts ./User.taro </code></p>
+                    <p>it can make a typescript file ,like this</p>
+                    <pre class="prettyprint lang-typescript" style="padding: 20px;">
+                        <code>
+interface UserInf {
+    getBaseUserInfoList(Request: queryIdsReq, Response: queryUsersNameRes): Promise&lt;queryUsersNameRes>
+
+    getUserList(Request: getUserListReq, Response: getUserListRes): Promise&lt;getUserListRes>
+
+    getUserById(Request: queryIdReq, Response: getUserByIdRes): Promise&lt;getUserByIdRes>
+
+    delUserById(Request: queryIdReq, Response: baseRes): Promise&lt;baseRes>
+
+    saveUser(Request: User, Response: baseRes): Promise&lt;baseRes>
+
+    batchDelUser(Request: queryIdsReq, Response: baseRes): Promise&lt;baseRes>
+
+    batchSetUser(Request: batchSetUserReq, Response: baseRes): Promise&lt;baseRes>
+
+}
+                </code></pre>
+                <p>then we can write our servcie code by implyment UserInf , such as 👇</p>
+                <pre class="prettyprint lang-typescript" style="padding: 20px;" id="ms-usage">
+                    <code>
+@TarsusInterFace("user")
+class UserImpl implements UserInf {
+    @TarsusMethod
+    @Stream('queryIdsReq', 'queryUsersNameRes')
+    async getBaseUserInfoList(Request: queryIdsReq, Response: queryUsersNameRes): Promise<queryUsersNameRes> {
+        Response.users = Request.ids.map(id => {
+            return {
+                id,
+                user_name: Schedule.userMap[id].username || ''
+            }
+        })
+        return Response;
+    }
+
+    @TarsusMethod
+    @Stream("queryIdReq", "getUserByIdRes")
+    async getUserById(Request: queryIdReq, Response: getUserByIdRes): Promise<getUserByIdRes> {
+        Response.data = Schedule.userMap[Request.id];
+        return Promise.resolve(Response);
+    }
+
+    @TarsusMethod
+    @Stream("getUserListReq", "getUserListRes")
+    getUserList(Request: getUserListReq, Response: getUserListRes): Promise<getUserListRes> {
+        return Promise.resolve(undefined);
+    }
+
+    @TarsusMethod
+    @Stream("queryIdsReq", "baseRes")
+    async batchDelUser(Request: queryIdsReq, Response: baseRes): Promise<baseRes> {
+        const ids = Request.ids
+        let ids_in = $BuildIn(ids);
+        let sql = `
+        delete  from user where id in ?
+        `
+        let params = [ids_in];
+        let data = await $ExecuteQuery(sql, params);
+        $Resolve(Response, data);
+        Response.message = data.code ? "删除失败" : "删除成功"
+        return Promise.resolve(Response);
+    }
+
+    @TarsusMethod
+    @Stream("batchSetUserReq", "baseRes")
+    batchSetUser(Request: batchSetUserReq, Response: baseRes): Promise<baseRes> {
+        Response.code = 0
+        Response.message = 'ok';
+        let ids = Request.ids
+        if (!ids.length) {
+            return Promise.resolve(Response)
+        }
+        let info = Request.info
+        let {username, password, role_name, level} = info
+        let buildIds = $BuildIn(ids)
+        let sql = `
+            update user set username = ?,password = ?,role_name = ?, level = ?  where id in ${buildIds}
+        `
+        let params = [username, password, role_name, level]
+        return new Promise(async (resolve) => {
+            const conn = await $PoolConn()
+            conn.query(sql, params, function (err, results) {
+                if (err) {
+                    Response.code = 600
+                    Response.message = "ok"
+                    resolve(Response)
+                    return conn.release();
+                }
+                resolve(Response)
+                return conn.release();
+            })
+        });
+    }
+
+    @TarsusMethod
+    @Stream("queryIdReq", "baseRes")
+    delUserById(Request: queryIdReq, Response: baseRes): Promise<baseRes> {
+        const id = Request.id
+        let sql = `
+        delete  from user where id = ?
+        `
+        let params = [id]
+        return new Promise(async (resolve) => {
+            Response.code = 0
+            Response.message = "ok"
+            const conn = await $PoolConn()
+            conn.query(sql, params, (err, resu) => {
+                if (err) {
+                    Response.message = err.message;
+                    Response.code = 600;
+                    resolve(Response)
+                    conn.release()
+                    return
+                }
+                resolve(Response)
+                conn.release()
+            })
+        });
+    }
+
+    @TarsusMethod
+    @Stream("User", "baseRes")
+    saveUser(Request: User, Response: baseRes): Promise<baseRes> {
+        return Promise.resolve(undefined);
+    }
+
+}
+            </code></pre>
+                </article>
+
+                <article id="MircoService">
+                    <h2>MircoService</h2>
+                    <p><code>import { TarsusMsApplication } from 'tarsus/core/microservice'</code>
+                    </p>
+                    <p>START MicroService. such as 👇</p>
+                    <pre class="prettyprint lang-typescript" style="padding: 20px;">
+                        <code>
+import {LoadInterface, LoadTaro, LoadStruct, LoadServer, TarsusMsApplication} from 'tarsus/core/microservice';
+import UserImpl from "./interface/UserInf";
+import "./components/schedule";
+
+
+@TarsusMsApplication
+class MicroService {
+    static main() {
+        LoadInterface([ UserImpl]);
+        LoadTaro()
+        LoadStruct()
+        LoadServer();
+    }
+}
+
+MicroService.main()
+                </code></pre>
+                </article>
+
+
+                <article id="TarsusInterFace">
+                    <h2>TarsusInterFace</h2>
+                    <p><code>import { TarsusInterFace } from 'tarsus/core/microservice'</code>
+                    </p>
+                    <p>The @TarsusInterFace, like NestJs and SpringBoot, is used to identify the request address</p>
+                    <p>Refer to <a href="#ms-usage">PROTO</a> for specific usage</p>
+                </article>
+
+                <article id="TarsusMethod">
+                    <h2>TarsusMethod</h2>
+                    <p><code>import { TarsusMethod } from 'tarsus/core/microservice'</code>
+                    </p>
+                    <p>The @TarsusMethod, like NestJs and SpringBoot, is used to identify the request address</p>
+                    <p>Request path to be constrained by method name definition</p>
+                    <p>Refer to <a href="#ms-usage">PROTO</a> for specific usage</p>
+                </article>
+
+                <article id="Stream">
+                    <h2>Stream</h2>
+                    <p><code>import { Stream } from 'tarsus/core/microservice'</code>
+                    </p>
+                    <p>This decorator @Stream defines input and output parameters. Due to the shelving of the typescirpt5 parameter decorator, we have to increase the definition of the type to the method to ensure type safety. </p>
+                    <p>At the same time, the return value type defined by the second parameter of @ Stream will undergo another fast JSON serialization process</p>
+                    <p>Refer to <a href="#ms-usage">PROTO</a> for specific usage</p>
+                </article>
+            </section>
+        </div>
+    </main>
+
+    <footer>
+        <p>© 2023 TarsusFramework - leekus</p>
+        <p>Sponsors : Jetbrains (Use Webstorm to Development)</p>
+    </footer>
+
+</body>
+
+</html>
