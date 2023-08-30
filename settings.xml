@@ -1,0 +1,12 @@
+<server>
+    <!-- id 与 pom.xml 的 distributionManagement -> snapshotRepository 节点中的 id 对应-->
+	<id>sonatype-snapshots</id>
+	<username>leemulus</username>
+	<password>TarsusJava_v1.0</password>
+</server>
+<server>
+    <!-- id 与 pom.xml 的 distributionManagement -> repository 节点中的 id 对应-->
+	<id>sonatype-release</id>
+	<username>leemulus</username>
+	<password>TarsusJava_v1.0</password>
+</server>
