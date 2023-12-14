@@ -25,3 +25,6 @@
 [submodule "Tarsus-Loader"]
 	path = Tarsus-Loader
 	url = https://github.com/chelizichen/Tarsus-Loader.git
+[submodule "TarsusProtocol"]
+	path = TarsusProtocol
+	url = https://github.com/chelizichen/TarsusProtocol.git
